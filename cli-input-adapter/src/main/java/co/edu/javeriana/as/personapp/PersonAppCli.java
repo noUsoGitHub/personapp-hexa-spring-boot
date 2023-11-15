@@ -14,18 +14,18 @@ public class PersonAppCli implements CommandLineRunner {
 	
 	@Autowired
 	private MenuPrincipal menuPrincipal;
-
+	private static String  id = "CLI[PERSON]: ";
 	public static void main(String[] args) {
-		log.info("Starting PersonAppCli ...");
+		log.info(id+"Starting");
 		SpringApplication.run(PersonAppCli.class, args);
-		log.info("Started PersonAppCli OK");
+		log.info(id+"OK");
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		log.info("EXECUTING : command line runner");
+		log.info(id+"Ejecutando");
 		menuPrincipal.inicio();
-		log.info("FINISHED : command line runner");
+		log.info(id+"Finalizado");
 	}
 
 }

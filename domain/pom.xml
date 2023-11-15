@@ -11,4 +11,5 @@
 	<artifactId>domain</artifactId>
 	<name>PersonAPP Domain</name>
 	<description>Domain for PersonAPP</description>
+	
 </project>
