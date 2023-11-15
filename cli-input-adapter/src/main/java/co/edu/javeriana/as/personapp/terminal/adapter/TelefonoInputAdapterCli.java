@@ -59,64 +59,53 @@ public class TelefonoInputAdapterCli {
 	}
 
     public void historial() {
-        log.info(id + "Into historial TelefonoModelCli in Input Adapter");
         try {
             phoneInputPort.findAll().stream()
                     .map(telefonoMapperCli::fromDomainToAdapterCli)
                     .forEach(phone -> {
-                        log.info(id + "Historial Teléfono: {}", phone);
                         System.out.println(phone);
                     });
         } catch (Exception e) {
-            log.error(id + "Error al obtener historial de teléfonos: {}", e.getMessage(), e);
             System.out.println("Error al obtener historial de teléfonos.");
         }
     }
 
     public void crearTelefono(TelefonoModelCli telefonoModelCli) {
         try {
-            log.info(id + "Creando Teléfono");
             Person person = personInputPort.findOne(telefonoModelCli.getDuenioId());
             Phone phone = phoneInputPort.create(telefonoMapperCli.fromAdapterToDomain(telefonoModelCli, person));
             System.out.println("Teléfono creado exitosamente");
             System.out.println(phone);
         } catch (Exception e) {
-            log.error(id + "Error al crear teléfono: {}", e.getMessage(), e);
             System.out.println("El teléfono no ha podido ser creado");
         }
     }
 
     public void obtenerTelefono(String numeroTelefono) {
         try {
-            log.info(id + "Obteniendo Teléfono con número: {}", numeroTelefono);
             System.out.println(phoneInputPort.findOne(numeroTelefono));
         } catch (Exception e) {
-            log.error(id + "Error al obtener teléfono: {}", e.getMessage(), e);
             System.out.println("El teléfono con número " + numeroTelefono + " no existe en el sistema");
         }
     }
 
     public void editarTelefono(TelefonoModelCli telefonoModelCli) {
         try {
-            log.info(id + "Editando Teléfono");
             Person person = personInputPort.findOne(telefonoModelCli.getDuenioId());
             Phone phone = phoneInputPort.edit(telefonoModelCli.getNumero(),
                     telefonoMapperCli.fromAdapterToDomain(telefonoModelCli, person));
             System.out.println("Teléfono editado exitosamente");
             System.out.println(phone);
         } catch (Exception e) {
-            log.error(id + "Error al editar teléfono: {}", e.getMessage(), e);
             System.out.println("El teléfono no ha podido ser editado");
         }
     }
 
     public void eliminarTelefono(String numeroTelefono) {
         try {
-            log.info(id + "Eliminando Teléfono con número: {}", numeroTelefono);
             phoneInputPort.drop(numeroTelefono);
             System.out.println("Teléfono con número " + numeroTelefono + " ha sido eliminado");
         } catch (Exception e) {
-            log.error(id + "Error al eliminar teléfono: {}", e.getMessage(), e);
             System.out.println("El teléfono no ha podido ser eliminado");
         }
     }

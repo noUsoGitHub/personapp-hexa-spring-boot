@@ -76,7 +76,6 @@ public class EstudiosInputAdapterCli {
     }
 
     public void historial() {
-        log.info(id + "Historial");
         try {
             List<Study> estudiosList = studyInputPort.findAll();
             if (estudiosList.isEmpty()) {
@@ -87,14 +86,12 @@ public class EstudiosInputAdapterCli {
                         .forEach(System.out::println);
             }
         } catch (Exception e) {
-            log.error(id+"Error al obtener historial de estudios: " + e.getMessage(), e);
             System.out.println("Error al obtener historial de estudios.");
         }
     }
 
     public void crearEstudios(EstudiosModelCli estudiosModelCli) {
         try {
-            log.info(id + "Creando Estudios");
             Person person = personInputPort.findOne(estudiosModelCli.getDuenioId());
             Profession profession = professionInputPort.findOne(estudiosModelCli.getProfesionId());
             Study study = studyInputPort
@@ -102,17 +99,14 @@ public class EstudiosInputAdapterCli {
             System.out.println("Carrera creada exitosamente");
             System.out.println(study);
         } catch (Exception e) {
-            log.error(id+"Error al crear estudios: " + e.getMessage(), e);
             System.out.println("La carrera no ha podido ser creada");
         }
     }
 
     public void obtenerEstudios(Integer idEstudios, Integer ccPer) {
         try {
-            log.info(id+"Obteniendo Estudios");
             System.out.println(studyInputPort.findOne(idEstudios, ccPer));
         } catch (Exception e) {
-            log.error(id+"Error al Obtener estudios: " + e.getMessage(), e);
             System.out.println("Cedula: " + ccPer + " profesión: " + idEstudios
                     + "no dan un resultado en el sistema");
         }
@@ -120,7 +114,6 @@ public class EstudiosInputAdapterCli {
 
     public void editarEstudios(EstudiosModelCli estudiosModelCli) {
         try {
-            log.info(id+"Editando Estudios");
             Person person = personInputPort.findOne(estudiosModelCli.getDuenioId());
             Profession profession = professionInputPort.findOne(estudiosModelCli.getProfesionId());
             Study study = studyInputPort.edit(estudiosModelCli.getProfesionId(), estudiosModelCli.getDuenioId(),
@@ -128,19 +121,16 @@ public class EstudiosInputAdapterCli {
             System.out.println("Edicion Exitosa");
             System.out.println(study);
         } catch (Exception e) {
-            log.error(id+"Error al editar estudios: " + e.getMessage(), e);
             System.out.println("Edicion fallida");
         }
     }
 
     public void eliminarEstudios(Integer idEstudios, Integer ccPer) {
         try {
-            log.info(id + "Eliminando Estudios con identificación: {}", idEstudios);
             studyInputPort.drop(idEstudios, ccPer);
             System.out.println("Carrera de la persona con cédula " + ccPer + " y el id de profesión " + idEstudios
                     + " ha sido eliminada");
         } catch (Exception e) {
-            log.error(id+"Error al eliminar estudios: " + e.getMessage(), e);
             System.out.println("La carrera no ha podido ser eliminada");
         }
     }

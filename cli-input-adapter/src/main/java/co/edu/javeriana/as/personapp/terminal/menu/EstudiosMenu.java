@@ -9,7 +9,9 @@ import co.edu.javeriana.as.personapp.common.exceptions.InvalidOptionException;
 import co.edu.javeriana.as.personapp.terminal.adapter.EstudiosInputAdapterCli;
 import co.edu.javeriana.as.personapp.terminal.model.EstudiosModelCli;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
+@Component
 @Slf4j
 public class EstudiosMenu {
 

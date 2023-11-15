@@ -41,6 +41,19 @@
 	<build>
 		<plugins>
 			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.1.0</version> <!-- Ajusta la versión si es necesario -->
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>co.edu.javeriana.as.personapp.PersonAppCli</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${global.springframework.boot.version}</version>
