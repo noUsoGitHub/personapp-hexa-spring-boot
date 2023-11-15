@@ -33,6 +33,24 @@
 			<organization>Pontificia Universidad Javeriana</organization>
 			<organizationUrl>https://www.javeriana.edu.co</organizationUrl>
 		</developer>
+		<developer>
+			<name>Santiago Leal</name>
+			<email>leal.sa@javeriana.edu.co</email>
+			<organization>Pontificia Universidad Javeriana</organization>
+			<organizationUrl>https://www.javeriana.edu.co</organizationUrl>
+		</developer>
+		<developer>
+			<name>Kevyn Prada</name>
+			<email>koparada@javeriana.edu.co</email>
+			<organization>Pontificia Universidad Javeriana</organization>
+			<organizationUrl>https://www.javeriana.edu.co</organizationUrl>
+		</developer>
+		<developer>
+			<name>Angie Pena</name>
+			<email>penap_at@javeriana.edu.co</email>
+			<organization>Pontificia Universidad Javeriana</organization>
+			<organizationUrl>https://www.javeriana.edu.co</organizationUrl>
+		</developer>
 	</developers>
 	<modules>
 		<module>common</module>
@@ -47,7 +65,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.26</version>
+			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

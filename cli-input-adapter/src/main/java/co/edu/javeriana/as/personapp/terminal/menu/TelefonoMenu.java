@@ -7,7 +7,9 @@ import co.edu.javeriana.as.personapp.common.exceptions.InvalidOptionException;
 import co.edu.javeriana.as.personapp.terminal.adapter.TelefonoInputAdapterCli;
 import co.edu.javeriana.as.personapp.terminal.model.TelefonoModelCli;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
+@Component
 @Slf4j
 public class TelefonoMenu {
 

@@ -44,63 +44,52 @@ public class ProfesionInputAdapterCli {
 
 
     public void historial() {
-        log.info(id + "Historial");
         try {
             professionInputPort.findAll().stream()
                     .map(profesionMapperCli::fromDomainToAdapterCli)
                     .forEach(profession -> {
-                        log.info(id + "Historial Profesión: {}", profession);
                         System.out.println(profession);
                     });
         } catch (Exception e) {
-            log.error(id + "Error al obtener historial de profesiones: {}", e.getMessage(), e);
             System.out.println("Error al obtener historial de profesiones.");
         }
     }
 
     public void crearProfesion(ProfesionModelCli profesionModelCli) {
         try {
-            log.info(id + "Creando Profesión");
             Profession profession = professionInputPort
                     .create(profesionMapperCli.fromAdapterToDomain(profesionModelCli));
             System.out.println("Profesión creada exitosamente");
             System.out.println(profession);
         } catch (Exception e) {
-            log.error(id + "Error al crear profesión: {}", e.getMessage(), e);
             System.out.println("La profesión no ha podido ser creada");
         }
     }
 
     public void obtenerProfesion(Integer idProfesion) {
         try {
-            log.info(id + "Obteniendo Profesión con identificación: {}", idProfesion);
             System.out.println(professionInputPort.findOne(idProfesion));
         } catch (Exception e) {
-            log.error(id + "Error al obtener profesión: {}", e.getMessage(), e);
             System.out.println("La profesión con identificación " + idProfesion + " no existe en el sistema");
         }
     }
 
     public void editarProfesion(ProfesionModelCli profesionModelCli) {
         try {
-            log.info(id + "Editando Profesión");
             Profession profession = professionInputPort.edit(profesionModelCli.getIdentificacion(),
                     profesionMapperCli.fromAdapterToDomain(profesionModelCli));
             System.out.println("Profesión editada exitosamente");
             System.out.println(profession);
         } catch (Exception e) {
-            log.error(id + "Error al editar profesión: {}", e.getMessage(), e);
             System.out.println("La profesión no ha podido ser editada");
         }
     }
 
     public void eliminarProfesion(Integer idProfesion) {
         try {
-            log.info(id + "Eliminando Profesión con identificación: {}", idProfesion);
             professionInputPort.drop(idProfesion);
             System.out.println("Profesión con la identificación " + idProfesion + " ha sido eliminada");
-        } catch (Exception e) {
-            log.error(id + "Error al eliminar profesión: {}", e.getMessage(), e);
+        } catch (Exception e) {;
             System.out.println("La profesión no ha podido ser eliminada");
         }
     }
