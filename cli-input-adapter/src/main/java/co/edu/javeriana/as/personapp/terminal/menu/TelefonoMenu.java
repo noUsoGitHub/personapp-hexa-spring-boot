@@ -4,12 +4,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import co.edu.javeriana.as.personapp.common.exceptions.InvalidOptionException;
-import co.edu.javeriana.as.personapp.terminal.adapter.PersonaInputAdapterCli;
-import co.edu.javeriana.as.personapp.terminal.model.PersonaModelCli;
+import co.edu.javeriana.as.personapp.terminal.adapter.TelefonoInputAdapterCli;
+import co.edu.javeriana.as.personapp.terminal.model.TelefonoModelCli;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class PersonaMenu {
+public class TelefonoMenu {
 
     private static final int OPCION_REGRESAR_MODULOS = 0;
     private static final int PERSISTENCIA_MARIADB = 1;
@@ -23,9 +23,10 @@ public class PersonaMenu {
     private static final int OPCION_ELIMINAR = 5;
 
     private static final String SOLO_NUMEROS = "Solo se permiten números.";
+    private static final String SOLO_CADENAS = "Solo se permiten cadenas.";
     private static final String DATO_INCORRECTO = "Dato incorrecto, intenta de nuevo";
 
-    public void iniciarMenu(PersonaInputAdapterCli personaInputAdapterCli, Scanner keyboard) {
+    public void iniciarMenu(TelefonoInputAdapterCli telefonoInputAdapterCli, Scanner keyboard) {
         boolean isValid = false;
         do {
             try {
@@ -36,12 +37,12 @@ public class PersonaMenu {
                         isValid = true;
                         break;
                     case PERSISTENCIA_MARIADB:
-                        personaInputAdapterCli.setPersonOutputPortInjection("MARIA");
-                        menuOpciones(personaInputAdapterCli, keyboard);
+                        telefonoInputAdapterCli.setPhoneOutputPortInjection("MARIA");
+                        menuOpciones(telefonoInputAdapterCli, keyboard);
                         break;
                     case PERSISTENCIA_MONGODB:
-                        personaInputAdapterCli.setPersonOutputPortInjection("MONGO");
-                        menuOpciones(personaInputAdapterCli, keyboard);
+                        telefonoInputAdapterCli.setPhoneOutputPortInjection("MONGO");
+                        menuOpciones(telefonoInputAdapterCli, keyboard);
                         break;
                     default:
                         log.warn("La opción elegida no es válida.");
@@ -54,7 +55,7 @@ public class PersonaMenu {
         } while (!isValid);
     }
 
-    private void menuOpciones(PersonaInputAdapterCli personaInputAdapterCli, Scanner keyboard) {
+    private void menuOpciones(TelefonoInputAdapterCli telefonoInputAdapterCli, Scanner keyboard) {
         boolean isValid = false;
         do {
             try {
@@ -65,28 +66,28 @@ public class PersonaMenu {
                         isValid = true;
                         break;
                     case OPCION_VER_TODO:
-                        personaInputAdapterCli.historial();
+                        telefonoInputAdapterCli.historial();
                         break;
                     case OPCION_VER_UNO:
-                        int cc = leerCC(keyboard);
-                        if (cc != -1) {
-                            personaInputAdapterCli.obtenerPersona(cc);
+                        String number = leerNumero(keyboard);
+                        if (!number.isEmpty()) {
+                            telefonoInputAdapterCli.obtenerTelefono(number);
                         } else {
                             System.out.println(DATO_INCORRECTO);
                         }
                         break;
                     case OPCION_CREAR:
-                        PersonaModelCli personaModelCli = leerPersona(keyboard);
-                        personaInputAdapterCli.crearPersona(personaModelCli);
+                        TelefonoModelCli telefonoModelCli = leerTelefono(keyboard);
+                        telefonoInputAdapterCli.crearTelefono(telefonoModelCli);
                         break;
                     case OPCION_EDITAR:
-                        PersonaModelCli personaModelCliEdit = leerPersona(keyboard);
-                        personaInputAdapterCli.editarPersona(personaModelCliEdit);
+                        TelefonoModelCli telefonoModelCli2 = leerTelefono(keyboard);
+                        telefonoInputAdapterCli.editarTelefono(telefonoModelCli2);
                         break;
                     case OPCION_ELIMINAR:
-                        int ccDelete = leerCC(keyboard);
-                        if (ccDelete != -1) {
-                            personaInputAdapterCli.eliminarPersona(ccDelete);
+                        String number2 = leerNumero(keyboard);
+                        if (!number2.isEmpty()) {
+                            telefonoInputAdapterCli.eliminarTelefono(number2);
                         } else {
                             System.out.println(DATO_INCORRECTO);
                         }
@@ -104,11 +105,11 @@ public class PersonaMenu {
 
     private void mostrarMenuOpciones() {
         System.out.println("----------------------");
-        System.out.println(OPCION_VER_TODO + " para ver todas las personas");
-        System.out.println(OPCION_VER_UNO + " para ver una persona");
-        System.out.println(OPCION_CREAR + " para crear una persona");
-        System.out.println(OPCION_EDITAR + " para editar una persona");
-        System.out.println(OPCION_ELIMINAR + " para eliminar una persona");
+        System.out.println(OPCION_VER_TODO + " para ver todas los telefonos");
+        System.out.println(OPCION_VER_UNO + " para ver un teléfono");
+        System.out.println(OPCION_CREAR + " para crear un teléfono");
+        System.out.println(OPCION_EDITAR + " para editar un teléfono");
+        System.out.println(OPCION_ELIMINAR + " para eliminar un teléfono");
         System.out.println(OPCION_REGRESAR_MOTOR_PERSISTENCIA + " para regresar");
     }
 
@@ -129,35 +130,32 @@ public class PersonaMenu {
         }
     }
 
-    private int leerCC(Scanner keyboard) {
+    private String leerNumero(Scanner keyboard) {
         try {
-            System.out.print("Ingrese la cédula de la persona: ");
-            return keyboard.nextInt();
+            System.out.print("Ingrese el número de teléfono: ");
+            return keyboard.next();
         } catch (InputMismatchException e) {
-            log.warn(SOLO_NUMEROS);
-            return -1;
+            log.warn(SOLO_CADENAS);
+            return "";
         }
     }
 
-    private PersonaModelCli leerPersona(Scanner keyboard) {
+    private TelefonoModelCli leerTelefono(Scanner keyboard) {
         try {
-            int cc = leerCC(keyboard);
-            keyboard.nextLine(); // Limpiar el buffer del teclado
-            System.out.print("Ingrese el nombre de la persona: ");
-            String name = keyboard.nextLine();
-            System.out.print("Ingrese el apellido de la persona: ");
-            String lastName = keyboard.nextLine();
-            System.out.print("Ingrese el género de la persona (MALE, FEMALE, OTHER): ");
-            String gender = keyboard.nextLine();
-            System.out.print("Ingrese la edad de la persona: ");
-            int age = keyboard.nextInt();
-
-            return new PersonaModelCli(cc, name, lastName, gender, age);
+            System.out.print("Ingrese el número de teléfono: ");
+            keyboard.nextLine();
+            String num = keyboard.nextLine();
+            System.out.print("Ingrese la compañía del teléfono: ");
+            String company = keyboard.nextLine();
+            System.out.print("Ingrese la cedula de la persona: ");
+            int cc = keyboard.nextInt();
+            return new TelefonoModelCli(num, company, cc);
         } catch (InputMismatchException e) {
-            log.warn(DATO_INCORRECTO);
-            return new PersonaModelCli(0, "", "", "", 0);
+            log.warn("Algún dato ingresado fue incorrecto. Intenta de nuevo");
+            return new TelefonoModelCli("", "", 0);
         } finally {
             keyboard.nextLine(); // Limpiar el buffer del teclado
         }
     }
+
 }
