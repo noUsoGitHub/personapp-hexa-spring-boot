@@ -2,19 +2,7 @@
 
 Este repositorio contiene el código fuente para la aplicación PersonApp, desarrollada siguiendo los principios de Arquitectura Limpia (Clean Architecture).
 
-## Opción 1: Ejecución con Docker
-
-### Paso 1: Instalar Docker
-Asegúrate de tener Docker instalado en tu sistema.
-
-### Paso 2: Ejecutar con Docker Compose
-Utiliza el siguiente comando en PowerShell para ejecutar la aplicación con Docker Compose:
-
-```powershell
-docker-compose up
-```
-
-## Opción 2: Ejecución sin Docker
+## Ejecución
 
 ### Requisitos previos
 Antes de ejecutar la aplicación, asegúrate de tener instalados y configurados los siguientes componentes:
