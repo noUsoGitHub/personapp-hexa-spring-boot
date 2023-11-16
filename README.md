@@ -1,16 +1,54 @@
-# personapp-hexa-spring-boot
-Plantilla Laboratorio Arquitectura Limpia
+# PersonApp Hexa Spring Boot
 
-Instalar MariaDB en puerto 3307
-Instalar MongoDB en puerto 27017
+Este repositorio contiene el código fuente para la aplicación PersonApp, desarrollada siguiendo los principios de Arquitectura Limpia (Clean Architecture).
 
-Ejecutar los scripts en las dbs
+## Opción 1: Ejecución con Docker
 
-el adaptador rest corre en el puerto 3000
-el swagger en http://localhost:3000/swagger-ui.html
+### Paso 1: Instalar Docker
+Asegúrate de tener Docker instalado en tu sistema.
 
-Son dos adaptadores de entrada, 2 SpringApplication diferentes
+### Paso 2: Ejecutar con Docker Compose
+Utiliza el siguiente comando en PowerShell para ejecutar la aplicación con Docker Compose:
 
-Deben configurar el lombok en sus IDEs
+```powershell
+docker-compose up
+```
 
-Pueden hacer Fork a este repo, no editar este repositorio
+## Opción 2: Ejecución sin Docker
+
+### Requisitos previos
+Antes de ejecutar la aplicación, asegúrate de tener instalados y configurados los siguientes componentes:
+
+- MariaDB en el puerto 3307
+- MongoDB en el puerto 27017
+
+correr los scripts de las bases de datos
+
+
+### Paso 1: Construir el Proyecto
+Ejecuta el siguiente comando en PowerShell para construir el proyecto usando Maven:
+
+```powershell
+mvn clean install
+```
+
+### Paso 2: Ejecutar el Adaptador REST
+Para ejecutar el adaptador REST, utiliza el siguiente comando:
+
+```powershell
+java -jar .\rest-input-adapter\target\rest-input-adapter-0.0.1-SNAPSHOT.jar
+```
+
+El adaptador REST estará disponible en el puerto 3000.
+
+### Paso 3: Ejecutar el Adaptador CLI
+Para ejecutar el adaptador CLI, utiliza el siguiente comando:
+
+```powershell
+java -jar .\cli-input-adapter\target\cli-input-adapter-0.0.1-SNAPSHOT.jar
+```
+
+
+## Informacion
+
+El adaptador REST estará disponible en el puerto 3000, y la documentación Swagger estará disponible en http://localhost:3000/swagger-ui.html.
